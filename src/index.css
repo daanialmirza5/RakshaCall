@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --font-display: 'Manrope', 'Noto Sans Devanagari', system-ui, sans-serif;
+
+  --color-ink-950: #05070d;
+  --color-ink-900: #0b1120;
+  --color-ink-850: #101827;
+  --color-ink-800: #151f30;
+  --color-ink-700: #1f2c42;
+  --color-ink-600: #2c3c58;
+  --color-ink-500: #46597c;
+  --color-ink-300: #93a4c3;
+  --color-ink-100: #dfe6f2;
+
+  --color-brand-400: #4fd1c5;
+  --color-brand-500: #2fb8ab;
+  --color-brand-600: #1f9d92;
+
+  --color-safe-400: #34d399;
+  --color-safe-500: #10b981;
+
+  --color-caution-400: #fbbf24;
+  --color-caution-500: #f59e0b;
+
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brand-500);
+  color: var(--color-ink-950);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
