@@ -288,7 +288,7 @@ export function Landing({ onNavigate }: { onNavigate: (v: View) => void }) {
             className="mt-6 inline-flex items-center gap-2 rounded-xl border border-ink-600 bg-ink-900 px-5 py-3 font-semibold text-ink-100 transition hover:bg-ink-800"
           >
             <Workflow className="h-4 w-4" aria-hidden />
-            View Live Architecture
+            View Runtime Observatory
           </button>
         </div>
       </section>

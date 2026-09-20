@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { getEventHistory, subscribe, type WorkflowEvent } from './workflowRuntime'
+import { getEventHistory, requestRuntimeSync, subscribe, type WorkflowEvent } from './workflowRuntime'
 
 export interface WorkflowVisualizerState {
   executionId: string | null
@@ -9,6 +9,20 @@ export interface WorkflowVisualizerState {
 
 const MAX_LOG = 200
 
+function getInitialState(workflowId: string): WorkflowVisualizerState {
+  const history = getEventHistory().filter((e) => e.workflowId === workflowId)
+  if (history.length > 0) {
+    const latestExecutionId = history[history.length - 1].executionId
+    const relevant = history.filter((e) => e.executionId === latestExecutionId).slice(-MAX_LOG)
+    const nodeStates: Record<string, WorkflowEvent> = {}
+    relevant.forEach((e) => {
+      nodeStates[e.nodeId] = e
+    })
+    return { executionId: latestExecutionId, nodeStates, log: relevant }
+  }
+  return { executionId: null, nodeStates: {}, log: [] }
+}
+
 /**
  * Live view over one workflow's event stream. Seeds itself from any events
  * that already happened (e.g. the user started a call before opening this
@@ -17,25 +31,22 @@ const MAX_LOG = 200
  * no stale nodes carried across executions.
  */
 export function useWorkflowVisualizerState(workflowId: string): WorkflowVisualizerState {
-  const [state, setState] = useState<WorkflowVisualizerState>({ executionId: null, nodeStates: {}, log: [] })
-  const executionIdRef = useRef<string | null>(null)
+  const [prevWorkflowId, setPrevWorkflowId] = useState(workflowId)
+  const [state, setState] = useState<WorkflowVisualizerState>(() => getInitialState(workflowId))
+  const executionIdRef = useRef<string | null>(state.executionId)
+
+  let activeState = state
+  if (prevWorkflowId !== workflowId) {
+    setPrevWorkflowId(workflowId)
+    const seed = getInitialState(workflowId)
+    setState(seed)
+    activeState = seed
+  }
 
   useEffect(() => {
-    // Seed from whatever already happened for this workflow (e.g. the user
-    // started a call before opening this view) before subscribing live.
-    const history = getEventHistory().filter((e) => e.workflowId === workflowId)
-    let seed: WorkflowVisualizerState = { executionId: null, nodeStates: {}, log: [] }
-    if (history.length > 0) {
-      const latestExecutionId = history[history.length - 1].executionId
-      const relevant = history.filter((e) => e.executionId === latestExecutionId).slice(-MAX_LOG)
-      const nodeStates: Record<string, WorkflowEvent> = {}
-      relevant.forEach((e) => {
-        nodeStates[e.nodeId] = e
-      })
-      seed = { executionId: latestExecutionId, nodeStates, log: relevant }
-    }
+    requestRuntimeSync()
+    const seed = getInitialState(workflowId)
     executionIdRef.current = seed.executionId
-    setState(seed)
 
     const unsubscribe = subscribe((event) => {
       if (event.workflowId !== workflowId) return
@@ -47,8 +58,10 @@ export function useWorkflowVisualizerState(workflowId: string): WorkflowVisualiz
         return { executionId: event.executionId, nodeStates, log }
       })
     })
+
     return unsubscribe
   }, [workflowId])
 
-  return state
+  return activeState
 }
+

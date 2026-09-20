@@ -1,409 +1,327 @@
 # RakshaCall 🛡️
 
-**A privacy-first, client-only, real-time scam-call protection assistant for detecting and responding to social-engineering scams.**
+**A privacy-first, client-only, real-time scam-call protection assistant that recognizes social-engineering manipulation while the call is happening.**
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React 19](https://img.shields.io/badge/React-19.2+-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-8.0+-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Vitest](https://img.shields.io/badge/Tests-203%20Passed-22C55E?logo=vitest&logoColor=white)](https://vitest.dev/)
-[![Privacy](https://img.shields.io/badge/Architecture-100%25_Client--Only-0D9488)](https://github.com/daanialmirza5/RakshaCall)
-[![Zero Backend](https://img.shields.io/badge/Backend-Zero_Required-10B981)](https://github.com/daanialmirza5/RakshaCall)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-daanialmirza5.github.io%2FRakshaCall-059669?style=for-the-badge)](https://daanialmirza5.github.io/RakshaCall/)
+[![Runtime Observatory](https://img.shields.io/badge/🔬_Runtime_Observatory-Live_Flow-3B82F6?style=for-the-badge)](https://daanialmirza5.github.io/RakshaCall/#/observatory)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-RakshaCall-181717?style=for-the-badge&logo=github)](https://github.com/daanialmirza5/RakshaCall)
 
 ---
 
-## 1. Project Overview
+### Quick Links & Resources
+- 🚀 **Live Demo:** [https://daanialmirza5.github.io/RakshaCall/](https://daanialmirza5.github.io/RakshaCall/)
+- 🔬 **Live Runtime Observatory:** [https://daanialmirza5.github.io/RakshaCall/#/observatory](https://daanialmirza5.github.io/RakshaCall/#/observatory)
+- 🎥 **Demo Video:** [`docs/demo/RakshaCall-Demo.mp4`](docs/demo/RakshaCall-Demo.mp4) (Preview format: [`docs/demo/RakshaCall-Demo.webp`](docs/demo/RakshaCall-Demo.webp))
+- 📦 **Source Repository:** [https://github.com/daanialmirza5/RakshaCall](https://github.com/daanialmirza5/RakshaCall)
 
-**RakshaCall** is a real-time conversational defense system engineered to protect citizens — particularly seniors, families, and everyday mobile users — from high-pressure social-engineering scams while the call is actively happening.
+---
 
-### The Real-World Problem
-India and global telecom networks have seen an alarming surge in psychological manipulation scams:
-- **"Digital Arrest" & Police/CBI Impersonation:** Fraudsters pose as law enforcement or judicial officers, alleging fabricated money-laundering or narcotics cases linked to the victim's Aadhaar or SIM. They enforce isolation (*"Do not hang up, do not tell your family"*) and demand hours on video surveillance before demanding "refundable verification deposits."
-- **Fake Bank & KYC Fraud:** Callers pose as fraud-prevention teams, inducing panic about account freezing to extract OTPs or persuade victims to install remote-access software.
-- **Customs & Courier Seizure:** Fake courier notices claiming a seized illegal parcel, demanding immediate "customs clearance fines."
-- **SIM Deactivation Warnings:** Automated threats to block the victim's mobile number unless personal credentials and UPI PINs are disclosed immediately.
-- **Investment & Task Scams:** Seemingly innocent part-time task offers that escalate into upfront deposit extortion.
+## 1. What is RakshaCall?
 
-Every traditional defense (bank fraud monitoring, telecom SIM-binding, SMS filters) operates **post-facto** — intervening only after funds have left the account. RakshaCall intervenes **during the manipulation**.
+**RakshaCall is a real-time scam-call protection assistant that helps a person recognize social-engineering tactics while the scam is happening.**
+
+In traditional fraud protection, banks and telecom carriers detect suspicious activity *post-facto* — after funds have already been transferred or credentials have been compromised. But the most devastating financial frauds — especially **"Digital Arrest" extortion, fake police/CBI raids, customs parcel seizures, and fake bank KYC cancellations** — rely on intense psychological coercion, urgency, isolation, and authority intimidation.
+
+When a victim is pressured into a high-stress state:
+- They are commanded to remain isolated (*"Do not disconnect, do not tell your family"*).
+- They are coerced into installing remote-access software or sharing OTPs and UPI PINs.
+- They are tricked into transferring "temporary refundable verification funds" to fraudulent accounts.
+
+**RakshaCall protects citizens in the crucial moment.** Running locally on the user's device with complete privacy, RakshaCall analyzes conversation dialogue in real time, spots manipulative psychological patterns (in English, Hinglish, Hindi, and Marathi), warns the user with clear safety instructions, provides one-tap trusted contact alerting, and connects directly to national emergency helplines.
+
+---
+
+## 2. What Can RakshaCall Do?
+
+- **🎙️ Live Scam-Call Simulation:** Interactive audio and transcript playback with realistic caller timing, speed controls, pause/resume, and instant jump to trigger phrases.
+- **⚡ Real-Time Stream Analysis:** Incremental analysis of incoming dialogue as each sentence is spoken.
+- **🎯 8-Category Social Engineering Tactic Detection:** Spots Authority Impersonation, Urgency & Panic, Secrecy & Isolation, Financial Demand, OTP & Credential Harvesting, Threat & Coercion, Verification Traps, and Fake Official Process.
+- **📈 Progressive Risk Escalation:** Dynamic risk scoring (0–100) transitioning smoothly across LOW (Safe/Normal), MEDIUM (Suspicious), and HIGH (Dangerous Scam) levels.
+- **🛑 High-Risk Safety Intervention:** Full-screen emergency takeover with four clear actionable directives: **STOP**, **DO NOT SHARE**, **DISCONNECT**, and **VERIFY**.
+- **👨‍👩‍👧 Trusted Contact Check-In:** One-tap pre-filled emergency alert preview to quickly inform family members or trusted guardians during an active threat.
+- **🚨 Citizen Action & Reporting Hub:** Instant direct access to India's National Cyber Crime Helpline (**1930**), Cybercrime Reporting Portal (**cybercrime.gov.in**), and Telecom Fraud portal (**Chakshu / Sanchar Saathi**).
+- **📋 Post-Call Incident Summary:** Comprehensive forensic report detailing peak risk score, detected scam tactics with exact evidence quotes, chronological event timeline, and export capabilities (Copy / Download).
+- **📝 On-Demand Transcript Analysis:** Dedicated workspace to paste, type, or test any suspicious transcript or message snippet without running a full live call.
+- **🌐 Multilingual & Vernacular Awareness:** Deep understanding of code-mixed Indian conversations including English, Romanized Hinglish, Devanagari Hindi, and Marathi.
+- **♿ Built-in Accessibility:** High-contrast color palette, font size scaling, screen-reader friendly ARIA markup, and full keyboard navigation.
+
+---
+
+## 3. Application Walkthrough
+
+### 3.1 Landing Page
+The landing page introduces RakshaCall's citizen protection mission, offering immediate access to simulated call scenarios, live transcript analysis, privacy guarantees, and national cybercrime resources.
+
+![RakshaCall Landing Page](docs/screenshots/01-landing-page.png)
+
+- **Start Protection / Try Live Demo:** Instant entry into hands-on call simulation.
+- **Analyze Suspicious Text:** Quick jump to the paste-and-analyze workspace.
+- **Zero-Data Privacy Commitment:** Reassurance that no voice or transcript data ever leaves the local device.
+- **Emergency Information:** Prominent links to national helplines and reporting resources.
+
+---
+
+### 3.2 Scenario Selector
+Users can choose from diverse real-world Indian scam simulations or test benign everyday conversations.
+
+![Scenario Selector](docs/screenshots/02-live-call-start.png)
+
+- **Digital Arrest (High Risk):** Impersonation of CBI/Cyber Police alleging money laundering, demanding isolation and financial verification.
+- **Fake Bank Fraud Prevention (High Risk):** Posing as a bank security manager claiming unauthorized transactions and requesting card/OTP verification.
+- **Customs & Parcel Seizure (High Risk):** False notice of an intercepted parcel containing narcotics, demanding immediate penalty deposits.
+- **SIM Card Deactivation Threat (High Risk):** Automated Telecom authority warning demanding Aadhaar/UPI details to prevent disconnection.
+- **Part-Time Job & Investment Scam (High Risk):** YouTube rating/crypto task scam demanding upfront deposits for "guaranteed commissions".
+- **Benign Conversations (Low/Safe):** Ordinary calls (e.g., Courier Delivery Coordination, Bank Appointment Scheduling, Family Chat) included to demonstrate false-positive resistance and calm reassurance.
+
+---
+
+### 3.3 Live Call Screen
+The call screen delivers an immersive simulated phone conversation interface with real-time audio playback and live transcription.
+
+![Live Call Screen](docs/screenshots/03-live-call-transcript.png)
+
+- **Simulated Caller Interface:** Displays caller name, organization, phone number, and ongoing call timer.
+- **Live Transcript Stream:** Auto-scrolling conversation lines with animated active speaker highlights.
+- **Playback Controls:** Play/pause, playback speed multiplier (0.75x, 1x, 1.25x, 1.5x), restart call, and a quick **"Jump to Scam Trigger"** button.
+- **Speech Synthesis (TTS):** Browser-native voice output tuned for conversational Indian accent tones.
+
+---
+
+### 3.4 Real-Time Detection
+As dialogue is processed, RakshaCall's deterministic detection engine evaluates every incoming phrase against social-engineering patterns and updates risk indicators in real time.
+
+![Real-Time Detection](docs/screenshots/04-live-call-detection.png)
+
+- **Live Risk Score Gauge:** Real-time numerical score (0–100) and color-coded status tier (Low, Medium, High).
+- **Detected Tactic Badges:** Live badges showing identified tactics (e.g., *Authority Impersonation*, *Urgency & Panic*, *Financial Demand*).
+- **Detection Event Feed:** Chronological list of matched trigger words and phrases with contextual timestamps.
+
+---
+
+### 3.5 High-Risk Warning & Intervention
+When cumulative risk crosses into high risk (Score ≥ 55), RakshaCall activates a high-visibility safety intervention designed to break the psychological coercion loop.
+
+![High Risk Safety Intervention](docs/screenshots/05-risk-warning.png)
+
+- **STOP:** Direct command to pause and resist immediate compliance.
+- **DO NOT SHARE:** Explicit instructions to withhold OTPs, passwords, Aadhaar numbers, and UPI PINs.
+- **DISCONNECT:** Clear recommendation to immediately hang up the call.
+- **VERIFY:** Guidance to independently verify claims through verified public agency phone numbers.
+
+---
+
+### 3.6 Trusted Contact Check-In
+Victims of social engineering are often manipulated into secrecy. RakshaCall provides a rapid trusted-contact alert modal to notify family members or friends.
+
+![Trusted Contact Alert](docs/screenshots/15-trusted-contact.png)
+
+- **Pre-formatted Emergency Message:** Summarizes caller name, suspected scam type, and current risk level.
+- **Quick Action Previews:** Simulated SMS and WhatsApp share actions.
+- *Note:* In this client-only hackathon demonstration, this panel provides a local UI preview and pre-formatted clipboard text.
+
+---
+
+### 3.7 Citizen Action & Reporting Hub
+RakshaCall equips users with verified official resources to take immediate action and report cybercrime incidents to Indian law enforcement.
+
+![Citizen Action Hub](docs/screenshots/16-emergency-action-hub.png)
+
+- **National Cyber Crime Helpline (1930):** Direct emergency dial link for reporting ongoing financial fraud within the golden hour.
+- **National Cyber Crime Reporting Portal (cybercrime.gov.in):** Official government portal for filing formal cybercrime complaints.
+- **Chakshu / Sanchar Saathi:** Department of Telecommunications (DoT) citizen reporting facility for fraudulent numbers and SMS headers.
+- *Note:* RakshaCall provides verified links and guidance; it does not automatically file complaints on the user's behalf.
+
+---
+
+### 3.8 Incident Summary Report
+After a suspicious call completes or is disconnected, users can generate and review a complete forensic summary.
+
+![Incident Summary Report](docs/screenshots/14-incident-summary.png)
+
+- **Peak Risk & Final Assessment:** Overview of highest threat level reached during the call.
+- **Tactic Breakdown:** Itemized list of all detected tactics with verbatim transcript quotes.
+- **Chronological Timeline:** Step-by-step record of conversation progression and detection milestones.
+- **Export Capabilities:** Copy formatted summary to clipboard or download as a text file for official filing.
+
+---
+
+### 3.9 Analyze Transcript (Paste & Test)
+Users can paste, type, or test suspicious messages, SMS texts, or recorded call transcripts directly into the interactive analysis workspace.
+
+| Empty Analysis Workspace | Live Detection Breakdown |
+| :---: | :---: |
+| ![Transcript Analysis](docs/screenshots/12-transcript-analysis.png) | ![Transcript Detected](docs/screenshots/13-transcript-detected.png) |
+
+- **Multi-Language Recognition:** Accurately processes English, Romanized Hinglish (*"Aapka account freeze hone wala hai, turant verification transfer karein"*), Hindi (*"यह सीबीआई से कॉल है, तुरंत पैसे ट्रांसफर करें"*), and Marathi (*"तुमचा फोन ब्लॉक केला जाईल"*).
+- **Interactive Preset Scenarios:** One-click sample loaders for testing Digital Arrest, Courier Customs, Bank KYC, and Benign dialogues.
+- **Instant Tactic & Risk Feedback:** Live scoring, matched phrase highlighting, and instant access to the incident report modal.
+
+---
+
+### 3.10 Mobile & Responsive Experience
+RakshaCall is designed mobile-first for on-the-go citizen protection across smartphones, tablets, and desktop displays.
+
+| Mobile Protection Interface | Mobile Runtime Flow |
+| :---: | :---: |
+| ![Mobile Protection](docs/screenshots/17-mobile-view.png) | ![Mobile Workflow](docs/screenshots/18-mobile-workflow.png) |
+
+- **Touch-Friendly Controls:** Large tap targets and accessible layouts optimized for single-handed use.
+- **Responsive Overlays:** Dynamic warning cards and bottom action sheets tailored for mobile viewports.
+
+---
+
+## 4. How the Product Protects You
+
+RakshaCall follows a continuous, proactive protection journey designed to safeguard citizens before, during, and after a scam attempt:
 
 ```
-Caller Speech (Simulated Stream / Mic / Pasted Text)
-        │
-        ▼
-Text Normalization (Unicode canonicalization, case, whitespace)
-        │
-        ▼
-Deterministic Multi-Vector Signal Engine (8 Tactic Categories)
-        │
-        ▼
-Co-occurrence Risk Scorer (Base weights + Stacked combination boost)
-        │
-        ▼
-Progressive Risk Classifier: LOW (0–24)  │  MEDIUM (25–54)  │  HIGH (55–100)
-        │
-        ├── LOW/NORMAL  ──▶ Calm reassurance, no false alarms
-        ├── MEDIUM      ──▶ Non-intrusive advisory banner
-        └── HIGH        ──▶ Full-screen Emergency Takeover + Citizen Safety Guidance
-```
-
----
-
-## 2. Key Differentiators
-
-1. **100% Client-Only Architecture:** Runs entirely in the user's browser runtime. No application backend server is required.
-2. **Privacy-First by Design:** No audio or conversation transcripts are ever transmitted to external servers or AI APIs.
-3. **Zero Cost & Zero API Dependencies:** No OpenAI/Gemini/Anthropic API keys required; immune to cloud outages, rate limits, or network lag.
-4. **Deterministic & Explainable:** Transparent pattern recognition engine where every verdict links directly to specific matched social-engineering tactics.
-5. **Multilingual Indian Scam Awareness:** Out-of-the-box support for English, Hinglish (romanized Hindi), Hindi (Devanagari), Marathi, and code-switched dialogues.
-6. **Real-Time Progressive Detection:** Evaluates conversation dynamically as each phrase arrives, continuously updating threat scores and risk tiers.
-7. **Actionable Emergency Hub:** Direct access to India's National Cyber Crime Helpline (**1930**), Cybercrime Reporting Portal (**cybercrime.gov.in**), and Telecom Fraud reporting (**Chakshu / Sanchar Saathi**).
-8. **Live Runtime Workflow Observability:** Interactive graph visualizer observing real execution events across **7 distinct application workflows**.
-
----
-
-## 3. How It Works
-
-```text
-┌─────────────────┐     ┌──────────────────────┐     ┌──────────────────────┐
-│   Call Input    │ ──▶ │  Transcript Stream   │ ──▶ │  Text Normalization  │
-└─────────────────┘     └──────────────────────┘     └──────────────────────┘
-                                                                │
-                                                                ▼
-┌─────────────────┐     ┌──────────────────────┐     ┌──────────────────────┐
-│  Risk Decision  │ ◀── │   Risk Calculation   │ ◀── │   Signal Matching    │
-│(LOW/MED/HIGH)   │     │ (Weights + Combos)   │     │ (8 Tactic Vectors)   │
-└─────────────────┘     └──────────────────────┘     └──────────────────────┘
-        │
-        ▼
-┌─────────────────┐     ┌──────────────────────┐     ┌──────────────────────┐
-│  Intervention   │ ──▶ │  Protection Actions  │ ──▶ │   Incident Report    │
-│(Warning Overlay)│     │(Stop, SOS, 1930 Hub) │     │ (Evidence Summary)   │
-└─────────────────┘     └──────────────────────┘     └──────────────────────┘
-```
-
-The workflow visualizer is connected directly to the application's runtime event bus (`src/lib/workflowRuntime.ts`). When functions execute in real time, events are emitted and displayed in the graph without fake animation loops.
-
----
-
-## 4. Live Runtime Workflow Visualizer
-
-Unlike applications that display static diagrams or mocked timer animations, RakshaCall includes an **integrated runtime observability system**.
-
-![Live Runtime Workflow](docs/screenshots/06-live-runtime-workflow.png)
-*Figure 1: Live Call Protection Workflow observing real-time transcript streaming, signal matching, and risk evaluation.*
-
-### Runtime Engine Architecture
-- **In-Memory Event Bus (`src/lib/workflowRuntime.ts`):** Lightweight, zero-dependency publish-subscribe runtime emitting typed `WorkflowEvent` objects.
-- **Instrumented Pipeline (`src/lib/workflowDrivers.ts`):** Wraps real normalization, regex signal extraction, and risk calculation functions.
-- **Observability State Hook (`src/lib/useWorkflowVisualizerState.ts`):** Aggregates live node statuses (`idle`, `running`, `success`, `error`), exact durations in milliseconds, and input/output payloads.
-- **Interactive Graph UI (`src/components/workflow/`):** Built with React Flow (`@xyflow/react`), rendering reactive nodes, animated edges, and a chronological execution log.
-
-![Workflow Node Details](docs/screenshots/07-workflow-node-details.png)
-*Figure 2: Real-time Node Details panel displaying execution duration (0.42 ms), exact input text, and structured output.*
-
----
-
-## 5. Multiple Observable Workflows
-
-RakshaCall implements 7 fully instrumented workflows corresponding to every lifecycle state in the application:
-
-| Workflow | Purpose | Verified Status |
-| :--- | :--- | :---: |
-| **Live Call Protection** | Observes end-to-end active call simulation, from speech to intervention | ✅ Verified |
-| **Detection Intelligence** | Tracks text normalization, regex signal matching, and co-occurrence scoring | ✅ Verified |
-| **Voice & Speech Pipeline** | Observes microphone SpeechRecognition, TTS synthesis, and audio activity | ✅ Verified |
-| **Incident & Response** | Maps detection events into session incident logs and user responses | ✅ Verified |
-| **Manual / Paste Analysis** | Observes manual text input, instant classification, and findings breakdown | ✅ Verified |
-| **Emergency Response** | Traces user actions following HIGH-risk alerts (1930, Trusted Contact, Hub) | ✅ Verified |
-| **Session Lifecycle** | Tracks scenario loading, playback controls, playId resets, and cleanup | ✅ Verified |
-
-### Workflow Visualizer Gallery
-
-| Detection Intelligence | Voice & Speech Pipeline |
-| :---: | :---: |
-| ![Detection Intelligence](docs/screenshots/08-detection-intelligence-workflow.png) | ![Voice & Speech Pipeline](docs/screenshots/09-voice-speech-workflow.png) |
-| *8 tactic categories & co-occurrence scoring* | *Speech recognition & speech synthesis lifecycle* |
-
-| Incident & Response | Manual Analysis |
-| :---: | :---: |
-| ![Incident & Response](docs/screenshots/10-incident-response-workflow.png) | ![Manual Analysis](docs/screenshots/11-manual-analysis-workflow.png) |
-| *Peak risk tracking & evidence compilation* | *Instant pasted transcript evaluation* |
-
-| Emergency & Protection Response | Session & Scenario Lifecycle |
-| :---: | :---: |
-| ![Emergency Response](docs/screenshots/12-emergency-workflow.png) | ![Session Lifecycle](docs/screenshots/13-session-lifecycle-workflow.png) |
-| *High-risk decision tree and citizen safety actions* | *Call playback state machine & cleanup* |
-
----
-
-## 6. Detection Engine & Tactic Categories
-
-The detection engine (`src/lib/detectionEngine.ts` + `src/data/signals.ts`) employs a **deterministic multi-vector rule system** modeled on documented Indian cybercrime advisories (PIB Fact Checks, RBI Consumer Awareness, Cyber Crime Police Units):
-
-1. **Authority Impersonation (Weight: 15):** Detects claims of representing CBI, RBI, Police, TRAI, Customs, Narcotics Bureau, Supreme Court, or judicial officers.
-2. **Urgency (Weight: 12):** Detects artificial panic phrasing (*"immediately"*, *"within 1 hour"*, *"last warning"*, *"do it now"*).
-3. **Threat (Weight: 18):** Detects threats of arrest, non-bailable warrants, bank account freezing, asset seizure, or criminal cases.
-4. **Isolation Tactics (Weight: 22):** Detects demands to stay on the line, maintain secrecy, or conceal the call from family.
-5. **Video Surveillance Demands (Weight: 20):** Detects demands to keep cameras active, show room surroundings, or share screens.
-6. **Credential Extraction (Weight: 25):** Detects requests for OTPs, UPI PINs, passwords, ATM PINs, or CVV numbers.
-7. **Financial Extraction (Weight: 25):** Detects demands for fund transfers, refundable security deposits, verification amounts, or customs clearance fees.
-8. **Remote-Access Demands (Weight: 28):** Detects instructions to install AnyDesk, TeamViewer, QuickSupport, or remote screen apps.
-
-### Multilingual & Vernacular Support
-The engine normalizes and matches phrases across:
-- **English:** `"This is CBI cyber crime cell. FIR registered against your Aadhaar."`
-- **Hinglish / Romanized Hindi:** `"Main police officer bol raha hu, turant paise transfer karo varna arrest ho jaoge."`
-- **Hindi (Devanagari):** `"तुरंत ओटीपी बताएं, आपका बैंक खाता ब्लॉक होने वाला है।"`
-- **Marathi:** `"तात्काळ पैसे ट्रान्सफर करा अन्यथा अटक वॉरंट जारी होईल."`
-
----
-
-## 7. Risk Scoring & Co-occurrence Logic
-
-Scammers rarely use a single keyword; real scams rely on **stacking tactics** (e.g. Authority + Threat + Isolation + Financial Demand).
-
-$$\text{Final Score} = \min\left(100, \sum \text{Matched Category Weights} + \text{Co-occurrence Bonus}\right)$$
-
-### Co-occurrence Combos
-- **$\ge 2$ Categories:** $+6$ Combo Bonus
-- **$\ge 3$ Categories:** $+16$ Combo Bonus
-- **$\ge 5$ Categories:** $+30$ Combo Bonus
-
-```text
-Score 0 – 24   ──▶  LOW RISK     (Normal / Benign Call — Green)
-Score 25 – 54  ──▶  MEDIUM RISK  (Suspicious Activity — Amber Alert)
-Score 55 – 100 ──▶  HIGH RISK    (Confirmed Scam Pattern — Red Emergency Takeover)
-```
-
----
-
-## 8. Real-Time Protection & User Experience
-
-| Live Call Stream & Detection | High-Risk Emergency Intervention |
-| :---: | :---: |
-| ![Live Call Detection](docs/screenshots/04-live-call-detection.png) | ![Risk Warning](docs/screenshots/05-risk-warning.png) |
-| *Dynamic risk meter climbing as manipulation tactics are detected* | *Full-screen takeover modal with clear, non-jargon guidance* |
-
-### Actionable Intervention Checklist
-When HIGH risk is detected, RakshaCall enforces 4 key rules:
-- **STOP:** Take a breath; real government and police agencies do not conduct investigations over WhatsApp or phone calls.
-- **DO NOT SHARE:** Never disclose OTPs, UPI PINs, or passwords under any circumstance.
-- **DISCONNECT:** Hang up immediately; disconnect video calls and do not comply with remote-access installation requests.
-- **VERIFY:** Check independently through official, verified phone numbers or local branch offices.
-
----
-
-## 9. Emergency Response & Official Helplines
-
-RakshaCall connects users directly to verified citizen safety resources:
-
-![Emergency Action Hub](docs/screenshots/16-emergency-action-hub.png)
-*Figure 3: Citizen Action Hub with verified Indian official channels.*
-
-- **National Cyber Crime Helpline (1930):** Direct telephone link (`tel:1930`) for immediate financial fraud intervention.
-- **National Cyber Crime Reporting Portal:** Official website link to [cybercrime.gov.in](https://cybercrime.gov.in).
-- **Chakshu Facility (Sanchar Saathi):** Official link to report suspected fraudulent calls and SMS messages on [sancharsaathi.gov.in](https://sancharsaathi.gov.in).
-
-> **Important Disclosure:** RakshaCall provides direct guidance and verified links. It does not claim to automatically submit complaints or contact authorities on the user's behalf.
-
----
-
-## 10. Simulated Trusted Contact & Incident Summary
-
-| Trusted Contact SOS Alert | Session Incident Summary |
-| :---: | :---: |
-| ![Trusted Contact](docs/screenshots/15-trusted-contact.png) | ![Incident Summary](docs/screenshots/14-incident-summary.png) |
-| *One-tap alert dispatch to designated family contact* | *Exportable incident summary with timeline and peak score* |
-
-- **Trusted Contact SOS:** Formulates a safe, plain-language check-in message built from detected tactics. (Clearly labeled simulated preview — no raw conversation transcript is transmitted).
-- **Incident Summary:** Compiles session metrics (Peak Risk Score, Likely Scam Type, Matched Tactic Timeline) with one-click **Copy to Clipboard** and **Download Text Report** functionality.
-
----
-
-## 11. Mobile Experience
-
-RakshaCall is fully responsive across mobile viewports (320px, 390px, 768px, and desktop):
-
-| Mobile Landing View | Mobile Runtime Workflow |
-| :---: | :---: |
-| ![Mobile Landing View](docs/screenshots/17-mobile-view.png) | ![Mobile Workflow](docs/screenshots/18-mobile-workflow.png) |
-| *Clean mobile navigation and high-contrast alert design* | *Interactive touch-enabled workflow graph* |
-
----
-
-## 12. Privacy Architecture
-
-- **Zero Application Backend:** No server, database, or cloud infrastructure receives conversation data.
-- **Local Synchronous Analysis:** Text normalization, regex scanning, and scoring run inside the client JavaScript runtime in $<1\text{ ms}$.
-- **Transparent Speech Input Disclosure:** Browser SpeechRecognition uses native browser capabilities. Audio processing depends on browser vendor implementations (e.g. Chrome may use browser vendor speech services). RakshaCall never sends voice audio to any RakshaCall server.
-- **No Account or Personal Tracking:** No tracking cookies, login credentials, or user telemetry.
-
----
-
-## 13. Technology Stack
-
-- **Core:** React 19, TypeScript 6, Vite 8
-- **Styling:** Tailwind CSS v4, Framer Motion
-- **Icons & Visuals:** Lucide React
-- **Workflow & Observability:** `@xyflow/react` (React Flow)
-- **Speech APIs:** Native Browser Web Speech API (`SpeechRecognition` & `SpeechSynthesis`)
-- **Testing:** Vitest 5, `@testing-library/react`, `jsdom`
-- **Linter:** `oxlint`
-
----
-
-## 14. Project Structure
-
-```text
-RakshaCall/
-├── docs/
-│   ├── demo/
-│   │   ├── RakshaCall-Demo.mp4        # High-definition demo recording
-│   │   └── RakshaCall-Demo.webp       # Animated lightweight preview
-│   └── screenshots/                   # Complete high-res screenshot suite
-│       ├── 01-landing-page.png
-│       ├── 02-live-call-start.png
-│       ├── 03-live-call-transcript.png
-│       ├── 04-live-call-detection.png
-│       ├── 05-risk-warning.png
-│       ├── 06-live-runtime-workflow.png
-│       ├── 07-workflow-node-details.png
-│       ├── 08-detection-intelligence-workflow.png
-│       ├── 09-voice-speech-workflow.png
-│       ├── 10-incident-response-workflow.png
-│       ├── 11-manual-analysis-workflow.png
-│       ├── 12-emergency-workflow.png
-│       ├── 13-session-lifecycle-workflow.png
-│       ├── 14-incident-summary.png
-│       ├── 15-trusted-contact.png
-│       ├── 16-emergency-action-hub.png
-│       ├── 17-mobile-view.png
-│       └── 18-mobile-workflow.png
-├── public/                            # Static assets (favicons, SVGs)
-├── src/
-│   ├── components/                    # UI Components
-│   │   ├── workflow/                  # Live Runtime Workflow visualizer
-│   │   │   ├── WorkflowGraphNode.tsx  # Custom React Flow node with status badges
-│   │   │   ├── WorkflowVisualizer.tsx # Multi-workflow tabbed visualizer & execution log
-│   │   │   └── workflowLayout.ts      # Deterministic graph coordinate layout engine
-│   │   ├── CallScreen.tsx             # Active call simulation interface
-│   │   ├── CitizenActionHub.tsx       # Emergency helpline 1930 & reporting guide
-│   │   ├── IncidentReportModal.tsx    # Forensic incident summary card
-│   │   ├── Landing.tsx                # Hero, trust strip, and features overview
-│   │   ├── PasteAnalyze.tsx           # Manual text / speech transcription tester
-│   │   ├── PlaybackControls.tsx       # 1x/2x/3x speed, jump trigger, and playback state
-│   │   ├── RiskMeter.tsx              # Progressive animated score gauge
-│   │   ├── TacticsList.tsx            # Categorized scam badges
-│   │   ├── TrustedContactPanel.tsx    # Emergency contact notification preview
-│   │   └── WarningOverlay.tsx         # Full-screen high-risk intervention takeover
-│   ├── data/
-│   │   ├── scenarios.ts               # Realistic scam & benign call dialogue streams
-│   │   └── signals.ts                 # 8 category regex patterns (EN, Hinglish, HI, MR)
-│   ├── i18n/
-│   │   ├── LanguageContext.tsx        # Vernacular language provider (EN, HI, MR)
-│   │   └── strings.ts                 # Multilingual UI copy and guidance dictionaries
-│   └── lib/                           # Logic & Engines
-│       ├── detectionEngine.ts         # Deterministic regex matcher and risk scorer
-│       ├── incidentReportUtils.ts     # Incident data generation and report formatting
-│       ├── speechRecognition.ts       # Web Speech API speech-to-text integration
-│       ├── speechSynthesis.ts         # Browser speech synthesis voice engine
-│       ├── textNormalize.ts           # Text canonicalization and punctuation handling
-│       ├── useCallPlayback.ts         # Call stream timer and playback controller
-│       ├── useCallVoice.ts            # Dynamic voice playback synchronization hook
-│       ├── useIncidentReport.ts       # Live incident state derivation hook
-│       ├── useWorkflowVisualizerState.ts # Real-time workflow state subscriber hook
-│       ├── workflowDefinitions.ts     # 7 registered workflow node/edge topologies
-│       ├── workflowDrivers.ts         # Instrumented function execution wrappers
-│       ├── workflowObservers.ts       # Runtime observation adapters
-│       └── workflowRuntime.ts         # Pure in-memory runtime event bus
-├── package.json
-├── tsconfig.json
-└── vite.config.ts
+┌─────────────────┐
+│   INCOMING CALL │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  CONVERSATION   │  Real-time dialogue stream (Speech Synthesis / Simulated Call / Mic)
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ SUSPICIOUS WORD │  Deterministic detection across 8 tactical categories
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ REAL-TIME CHECK │  Local pattern matching & vernacular normalization (Zero Cloud / No Backend)
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ RISK ESCALATION │  Multi-signal risk weighting & progressive scoring (0–100)
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ CITIZEN WARNING │  High-visibility intervention: STOP • DO NOT SHARE • DISCONNECT • VERIFY
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ USER PROTECTION │  One-tap Trusted Contact check-in to break isolation
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ INCIDENT REPORT │  Forensic summary with timestamped quotes, exportable for reporting
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ GET HELP / 1930 │  Direct access to 1930 Helpline, cybercrime.gov.in, and Chakshu portal
+└─────────────────┘
 ```
 
 ---
 
-## 15. Testing & Quality Assurance
+## 5. RakshaCall Runtime Observatory
 
-All 203 unit and integration tests across 13 test suites pass cleanly:
+To provide complete transparency for **hackathon judges, developers, and security reviewers**, RakshaCall includes a dedicated **Runtime Observatory** that exposes the real-time execution of the internal client-side engine.
 
-```text
-✓ src/lib/detectionEngine.test.ts (63 tests)
-✓ src/lib/useCallVoice.test.ts (13 tests)
-✓ src/lib/useCallPlayback.test.ts (12 tests)
-✓ src/lib/useIncidentReport.test.ts (7 tests)
-✓ src/lib/useWorkflowVisualizerState.test.ts (7 tests)
-✓ src/lib/speechRecognition.test.ts (10 tests)
-✓ src/lib/callPlaybackUtils.test.ts (16 tests)
-✓ src/lib/incidentReportUtils.test.ts (16 tests)
-✓ src/lib/workflowDrivers.test.ts (8 tests)
-✓ src/lib/workflowRuntime.test.ts (14 tests)
-✓ src/lib/speechSynthesis.test.ts (23 tests)
-✓ src/lib/textNormalize.test.ts (7 tests)
-✓ src/components/workflow/workflowLayout.test.ts (7 tests)
+🔗 **Access Observatory:** [https://daanialmirza5.github.io/RakshaCall/#/observatory](https://daanialmirza5.github.io/RakshaCall/#/observatory)
 
-Test Files  13 passed (13)
-     Tests  203 passed (203)
-```
+> **Cross-Tab Real-Time Synchronization:**  
+> The Observatory uses a browser-native `BroadcastChannel('rakshacall_runtime_channel')`. When you run a scam scenario in one browser tab and keep the Runtime Observatory open in another tab (or side-by-side window), you will see the graph update dynamically with real execution timestamps, active node states, detected tactics, and risk scores.
 
----
+### Observatory Screenshots & Workflow Graph Views
 
-## 16. Demo Video
+| Interactive Workflow Graph | Live Node Execution Details |
+| :---: | :---: |
+| ![Live Architecture](docs/screenshots/06-live-architecture.png) | ![Node Details](docs/screenshots/07-node-details.png) |
 
-A full demonstration video of RakshaCall is recorded and included in the repository:
+| Detection Intelligence Pipeline | Voice & Speech Activity Runtime |
+| :---: | :---: |
+| ![Detection Pipeline](docs/screenshots/08-detection-workflow.png) | ![Voice Workflow](docs/screenshots/09-voice-workflow.png) |
 
-- 📹 **Demo Video (MP4):** [docs/demo/RakshaCall-Demo.mp4](docs/demo/RakshaCall-Demo.mp4)
-- 🎬 **Demo Preview (WebP):** [docs/demo/RakshaCall-Demo.webp](docs/demo/RakshaCall-Demo.webp)
+| Incident & Response Workflow | Manual / Paste Analysis Pipeline |
+| :---: | :---: |
+| ![Incident Workflow](docs/screenshots/10-incident-workflow.png) | ![Manual Analysis](docs/screenshots/11-manual-workflow.png) |
 
----
-
-## 17. 2-Minute Hackathon Demo Flow
-
-1. **Landing Page:** Open RakshaCall and review the problem statement and client-side privacy model.
-2. **Start Protection:** Select the *Fake "Digital Arrest" — CBI Impersonation* scenario.
-3. **Live Streaming & Detection:** Set speed to `2x` and observe the Risk Meter climbing as authority, threat, and isolation tactics appear.
-4. **Scam Escalation:** Watch the score cross 55 into **HIGH RISK**, triggering the emergency intervention takeover.
-5. **Actionable Response:** Inspect the STOP guidance, test the simulated **Alert Amit (Son)** SOS, and review the **Citizen Action Hub (1930 Helpline)**.
-6. **Incident Summary:** View the incident report card showing the peak risk score and chronological detection timeline.
-7. **Live Runtime Workflow:** Open the **Live Architecture** visualizer and explore the 7 observable execution graphs with live timestamps and execution durations.
+### 7 Observable Application Workflows
+1. **Live Call Protection (`liveCall`):** End-to-end call orchestration from audio playback and transcript accumulation to real-time risk evaluation and emergency triggers.
+2. **Detection Intelligence (`detection`):** Multi-stage signal extraction, text normalization, regex matching, category scoring, and threshold classification.
+3. **Voice & Speech Activity (`voice`):** Web Speech API voice synthesis, rate clamping, and utterance queuing.
+4. **Incident & Response (`incident`):** Summary aggregation, forensic quote extraction, and report formatting.
+5. **Manual / Paste Analysis (`manualAnalysis`):** Batch analysis pipeline for pasted text snippets and SMS transcripts.
+6. **Emergency & Protection (`emergency`):** Trigger logic for high-risk overlays, trusted contact dispatch, and helpline integration.
+7. **Session & Scenario Lifecycle (`lifecycle`):** Scenario state transitions, playback resets, and teardown handlers.
 
 ---
 
-## 18. Local Setup & Execution
+## 6. Technical Architecture
+
+RakshaCall is built on a 100% client-side, zero-backend architecture engineered for speed, privacy, and zero operational overhead:
+
+- **Client-Side Detection Engine:** Fast deterministic regex and keyword matrix evaluated locally in sub-millisecond execution time.
+- **Vernacular Normalizer:** Handles Unicode canonicalization, diacritic stripping, case folding, and transliterated romanized spellings for seamless Hinglish/Hindi/Marathi parsing.
+- **Runtime Event Bus & Observers:** Lightweight pub/sub architecture (`workflowRuntime.ts`) instrumenting application functions and broadcasting state via `BroadcastChannel`.
+- **Zero External AI / Zero Cloud Dependencies:** Complete immunity to third-party API outages, latency spikes, or cloud service pricing.
+- **Zero Backend Telemetry:** User audio, inputs, and conversation transcripts remain strictly contained within browser memory.
+
+---
+
+## 7. Local Development & Testing
 
 ### Prerequisites
-- Node.js 18+ installed
+- Node.js 18+ (Node 22 recommended)
+- npm 9+
 
-### Installation & Run
+### Quick Start
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/daanialmirza5/RakshaCall.git
 cd RakshaCall
 
 # Install dependencies
-npm install
+npm ci
 
 # Start local development server
 npm run dev
 
-# Run unit and integration tests
+# Run full Vitest test suite
 npm run test:run
 
 # Build production bundle
 npm run build
+
+# Run linter
+npm run lint
+```
+
+### Comprehensive Test Suite
+RakshaCall includes **203 automated unit and integration tests** covering vernacular detection, risk scoring math, playback state machines, speech hooks, incident builders, and workflow instrumentation.
+
+```
+ ✓ src/lib/workflowRuntime.test.ts (11 tests)
+ ✓ src/lib/workflowDrivers.test.ts (20 tests)
+ ✓ src/lib/useWorkflowVisualizerState.test.ts (11 tests)
+ ✓ src/lib/useIncidentReport.test.ts (11 tests)
+ ✓ src/lib/useCallVoice.test.ts (11 tests)
+ ✓ src/lib/useCallPlayback.test.ts (21 tests)
+ ✓ src/lib/textNormalize.test.ts (15 tests)
+ ✓ src/lib/speechSynthesis.test.ts (35 tests)
+ ✓ src/lib/speechRecognition.test.ts (6 tests)
+ ✓ src/lib/incidentReportUtils.test.ts (26 tests)
+ ✓ src/lib/detectionEngine.test.ts (28 tests)
+ ✓ src/lib/callPlaybackUtils.test.ts (18 tests)
+ ✓ src/components/workflow/workflowLayout.test.ts (8 tests)
+
+ Test Files  13 passed (13)
+      Tests  203 passed (203)
 ```
 
 ---
 
-## 19. Limitations
+## 8. Authorship & Project Attribution
 
-- **Deterministic Rule-Based Detection:** Identifies known social-engineering phrasings and their combinations; novel phrasing variations may require pattern updates.
-- **No Direct GSM Interception:** This MVP analyzes streamed scenario dialogues, microphone input, or pasted text; it does not intercept cellular phone calls.
-- **Browser Speech-to-Text Dependency:** Speech recognition capability depends on browser support (Chromium-based browsers recommended).
-- **Session-Only Persistence:** Incident reports and state are maintained in-memory for the current browser session only.
-
----
-
-## 20. Disclaimer
-
-RakshaCall is an open-source hackathon safety-assistance application built for educational and harm-reduction demonstration purposes. It does not replace official emergency services, commercial banking fraud systems, telecom security filters, or law enforcement authorities. If you suspect you are a victim of financial cybercrime, dial **1930** or visit **[cybercrime.gov.in](https://cybercrime.gov.in)** immediately.
+- **Creator & Developer:** [Daanial Mirza](https://github.com/daanialmirza5) (`daanialmirza@gmail.com`)
+- **Repository:** [https://github.com/daanialmirza5/RakshaCall](https://github.com/daanialmirza5/RakshaCall)
+- **License:** MIT License

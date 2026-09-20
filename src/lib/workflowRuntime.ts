@@ -39,6 +39,70 @@ function randomSuffix(length: number): string {
   return Array.from({ length }, () => ID_ALPHABET[Math.floor(Math.random() * ID_ALPHABET.length)]).join('')
 }
 
+const BROADCAST_CHANNEL_NAME = 'rakshacall_runtime_channel'
+let channel: BroadcastChannel | null = null
+
+function getBroadcastChannel(): BroadcastChannel | null {
+  if (channel) return channel
+  if (typeof window !== 'undefined' && typeof BroadcastChannel !== 'undefined') {
+    try {
+      channel = new BroadcastChannel(BROADCAST_CHANNEL_NAME)
+      channel.onmessage = (msgEvent) => {
+        const data = msgEvent.data
+        if (data && data.type === 'EVENT' && data.payload) {
+          const event: WorkflowEvent = data.payload
+          const alreadyExists = eventHistory.some(
+            (e) =>
+              e.executionId === event.executionId &&
+              e.nodeId === event.nodeId &&
+              e.status === event.status &&
+              e.timestamp === event.timestamp,
+          )
+          if (!alreadyExists) {
+            eventHistory.push(event)
+            if (eventHistory.length > MAX_HISTORY) eventHistory = eventHistory.slice(-MAX_HISTORY)
+            listeners.forEach((listener) => listener(event))
+          }
+        } else if (data && data.type === 'REQUEST_SYNC') {
+          if (eventHistory.length > 0) {
+            channel?.postMessage({ type: 'SYNC_RESPONSE', payload: eventHistory })
+          }
+        } else if (data && data.type === 'SYNC_RESPONSE' && Array.isArray(data.payload)) {
+          const incoming: WorkflowEvent[] = data.payload
+          incoming.forEach((event) => {
+            const alreadyExists = eventHistory.some(
+              (e) =>
+                e.executionId === event.executionId &&
+                e.nodeId === event.nodeId &&
+                e.status === event.status &&
+                e.timestamp === event.timestamp,
+            )
+            if (!alreadyExists) {
+              eventHistory.push(event)
+            }
+          })
+          eventHistory.sort((a, b) => a.timestamp - b.timestamp)
+          if (eventHistory.length > MAX_HISTORY) eventHistory = eventHistory.slice(-MAX_HISTORY)
+          const latest = eventHistory[eventHistory.length - 1]
+          if (latest) listeners.forEach((listener) => listener(latest))
+        }
+      }
+    } catch {
+      // Ignore if BroadcastChannel is unsupported or throws
+    }
+  }
+  return channel
+}
+
+/** Requests active execution history from other open browser tabs via BroadcastChannel. */
+export function requestRuntimeSync(): void {
+  try {
+    getBroadcastChannel()?.postMessage({ type: 'REQUEST_SYNC' })
+  } catch {
+    // ignore
+  }
+}
+
 /** A local execution identifier — cosmetic only, never a server job id. */
 export function createExecutionId(prefix = 'RK'): string {
   return `${prefix}-${randomSuffix(4)}`
@@ -49,6 +113,11 @@ export function emit(event: Omit<WorkflowEvent, 'timestamp'>): WorkflowEvent {
   eventHistory.push(full)
   if (eventHistory.length > MAX_HISTORY) eventHistory = eventHistory.slice(-MAX_HISTORY)
   listeners.forEach((listener) => listener(full))
+  try {
+    getBroadcastChannel()?.postMessage({ type: 'EVENT', payload: full })
+  } catch {
+    // ignore
+  }
   return full
 }
 

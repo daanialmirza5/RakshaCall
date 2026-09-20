@@ -64,7 +64,7 @@ export function Header({ view, onNavigate }: { view: View; onNavigate: (v: View)
           ))}
           {navItem('picker', strings.nav.demo)}
           {navItem('paste', strings.nav.paste)}
-          {navItem('architecture', 'Live Architecture')}
+          {navItem('architecture', 'Runtime Observatory')}
         </nav>
 
         <AccessibilityControls />

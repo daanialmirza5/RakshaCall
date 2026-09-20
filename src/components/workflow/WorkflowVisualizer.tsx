@@ -94,7 +94,7 @@ export function WorkflowVisualizer({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close live architecture view"
+            aria-label="Close runtime observatory view"
             className="rounded-full p-1.5 text-ink-300 hover:bg-ink-800 hover:text-ink-100"
           >
             <X className="h-5 w-5" aria-hidden />

@@ -28,6 +28,7 @@ jobs:
       - run: npm run build
         env:
           GITHUB_PAGES: 'true'
+      - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

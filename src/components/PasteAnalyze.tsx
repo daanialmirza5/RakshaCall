@@ -156,7 +156,7 @@ export function PasteAnalyze() {
             className="flex items-center gap-1.5 rounded-lg bg-ink-800 px-3 py-2 text-sm font-medium text-ink-200 hover:bg-ink-700"
           >
             <Workflow className="h-4 w-4" aria-hidden />
-            Live Architecture
+            Runtime Observatory
           </button>
           <button
             type="button"
@@ -199,7 +199,7 @@ export function PasteAnalyze() {
             <button
               type="button"
               onClick={() => setArchitectureOpen(false)}
-              aria-label="Close live architecture view"
+              aria-label="Close runtime observatory view"
               className="absolute -top-3 -right-3 z-10 rounded-full bg-ink-900 p-1.5 text-ink-300 shadow-md hover:bg-ink-800 hover:text-ink-100"
             >
               <X className="h-4 w-4" aria-hidden />
