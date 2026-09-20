@@ -12,7 +12,6 @@
 - 🚀 **Live Demo:** [https://daanialmirza5.github.io/RakshaCall/](https://daanialmirza5.github.io/RakshaCall/)
 - 🔬 **Live Runtime Observatory:** [https://daanialmirza5.github.io/RakshaCall/#/observatory](https://daanialmirza5.github.io/RakshaCall/#/observatory)
 - 🎥 **Demo Video:** [`docs/demo/RakshaCall-Final-Demo.mp4`](docs/demo/RakshaCall-Final-Demo.mp4)
-- 📊 **Presentation (PPTX):** [`RakshaCall_Hackathon_Presentation_7_Slides.pptx`](RakshaCall_Hackathon_Presentation_7_Slides.pptx) ([PDF Export](RakshaCall_Hackathon_Presentation_7_Slides.pdf))
 - 📦 **Source Repository:** [https://github.com/daanialmirza5/RakshaCall](https://github.com/daanialmirza5/RakshaCall)
 
 ---

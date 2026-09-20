@@ -27,3 +27,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Presentations & generation scripts
+*.pptx
+*.ppt
+*.pdf
+generate_presentation.py
