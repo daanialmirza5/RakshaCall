@@ -16,6 +16,7 @@ export const SCAM_SCENARIOS: Scenario[] = [
       'A caller claims to be a CBI officer, alleges the victim\'s Aadhaar is linked to a crime, and keeps them isolated on video under threat of arrest.',
     category: 'digital-arrest',
     isScam: true,
+    language: 'en',
     callerName: 'Unknown — "Officer A. Sharma"',
     lines: [
       { speaker: 'caller', text: 'Good afternoon. Am I speaking with the registered holder of this Aadhaar number?', delayMs: 500 },
@@ -38,6 +39,7 @@ export const SCAM_SCENARIOS: Scenario[] = [
       'Caller poses as a bank fraud-prevention officer and pressures the victim into installing a remote-access app "to secure" their account.',
     category: 'fake-bank',
     isScam: true,
+    language: 'en',
     callerName: 'Unknown — "SBI Fraud Prevention"',
     lines: [
       { speaker: 'caller', text: 'Hello, this is the fraud prevention department calling about your bank account. We have detected suspicious activity just now.', delayMs: 500 },
@@ -57,6 +59,7 @@ export const SCAM_SCENARIOS: Scenario[] = [
       'Caller claims a parcel in the victim\'s name was seized by customs and demands an urgent "fine" to release it.',
     category: 'courier-customs',
     isScam: true,
+    language: 'en',
     callerName: 'Unknown — "FedEx / Customs Dept"',
     lines: [
       { speaker: 'caller', text: 'This is a courtesy call from the courier company. A parcel booked under your name and Aadhaar has been intercepted by customs.', delayMs: 500 },
@@ -74,6 +77,7 @@ export const SCAM_SCENARIOS: Scenario[] = [
       'Caller claims to be from the telecom regulator and threatens SIM deactivation unless the victim shares personal/banking details.',
     category: 'sim-deactivation',
     isScam: true,
+    language: 'en',
     callerName: 'Unknown — "TRAI Helpline"',
     lines: [
       { speaker: 'caller', text: 'This is an automated-style call from TRAI regarding your mobile number. Your SIM is being used for illegal activity.', delayMs: 500 },
@@ -90,6 +94,7 @@ export const SCAM_SCENARIOS: Scenario[] = [
       'Caller lures the victim into a too-good-to-be-true investment task scheme that starts friendly and escalates into a payment request.',
     category: 'investment',
     isScam: true,
+    language: 'en',
     callerName: 'Unknown — "Wealth Growth Advisor"',
     lines: [
       { speaker: 'caller', text: 'Hi! I\'m calling about the part-time task opportunity you showed interest in — simple product-rating tasks, great daily returns.', delayMs: 500 },
@@ -109,6 +114,7 @@ export const NORMAL_SCENARIOS: Scenario[] = [
     description: 'A real delivery agent confirming a scheduled drop-off. No pressure, no personal data requested.',
     category: 'normal',
     isScam: false,
+    language: 'en',
     callerName: 'Delivery Partner — Rahul',
     lines: [
       { speaker: 'caller', text: 'Hi, this is Rahul from Bluedart. I have your package for delivery today.', delayMs: 500 },
@@ -124,6 +130,7 @@ export const NORMAL_SCENARIOS: Scenario[] = [
     description: 'A standard sales pitch — pushy but not a scam pattern, and easy to decline.',
     category: 'normal',
     isScam: false,
+    language: 'en',
     callerName: 'Sales — Credit Card Offer',
     lines: [
       { speaker: 'caller', text: 'Good morning! We have a special pre-approved credit card offer for you with zero annual fee.', delayMs: 500 },
@@ -139,6 +146,7 @@ export const NORMAL_SCENARIOS: Scenario[] = [
     description: 'A real bank call confirming a KYC update is complete — informational only, nothing requested.',
     category: 'normal',
     isScam: false,
+    language: 'en',
     callerName: 'HDFC Bank — Customer Care',
     lines: [
       { speaker: 'caller', text: 'Hello, this is HDFC Bank calling to confirm your recent KYC document update has been processed successfully.', delayMs: 500 },
@@ -154,6 +162,7 @@ export const NORMAL_SCENARIOS: Scenario[] = [
     description: 'A casual conversation between friends — the baseline "nothing to see here" case.',
     category: 'normal',
     isScam: false,
+    language: 'en',
     callerName: 'Priya (Contact)',
     lines: [
       { speaker: 'caller', text: 'Hey! Are we still on for dinner tonight?', delayMs: 500 },

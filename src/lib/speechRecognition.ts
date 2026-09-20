@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { LANG_TO_BCP47, type Lang } from '../i18n/strings'
 
 /**
  * Thin wrapper around the browser-native Web Speech API (SpeechRecognition).
@@ -7,6 +8,12 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  * every caller of this hook must handle `supported === false` gracefully
  * (e.g. Firefox and most non-Chromium browsers don't implement it), since
  * the rest of the product must keep working via typed/pasted transcripts.
+ *
+ * Note on privacy: this wraps the *browser's* recognition implementation,
+ * which is browser-controlled — some browsers process speech on-device,
+ * others (notably Chrome) may send audio to their own servers to produce
+ * the transcript. RakshaCall's detection engine itself never leaves this
+ * device either way; see the mic privacy note surfaced in the UI.
  */
 
 interface SpeechRecognitionResultLike {
@@ -19,6 +26,10 @@ interface SpeechRecognitionEventLike extends Event {
   results: ArrayLike<SpeechRecognitionResultLike>
 }
 
+interface SpeechRecognitionErrorEventLike extends Event {
+  error: string
+}
+
 interface SpeechRecognitionLike extends EventTarget {
   continuous: boolean
   interimResults: boolean
@@ -26,7 +37,7 @@ interface SpeechRecognitionLike extends EventTarget {
   start: () => void
   stop: () => void
   onresult: ((event: SpeechRecognitionEventLike) => void) | null
-  onerror: ((event: Event) => void) | null
+  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null
   onend: (() => void) | null
 }
 
@@ -38,11 +49,26 @@ function getSpeechRecognitionCtor(): (new () => SpeechRecognitionLike) | null {
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null
 }
 
-export function useSpeechRecognition() {
+export type MicState = 'unsupported' | 'ready' | 'listening' | 'permission-denied' | 'no-mic' | 'error'
+
+/** Maps a raw SpeechRecognition error code to the mic state it represents, without exposing the raw code to the UI. */
+function micStateForError(errorCode: string): MicState {
+  if (errorCode === 'not-allowed' || errorCode === 'service-not-allowed') return 'permission-denied'
+  if (errorCode === 'audio-capture') return 'no-mic'
+  // 'network', 'aborted', 'no-speech', 'language-not-supported', or anything unrecognized.
+  return 'error'
+}
+
+export function useSpeechRecognition(lang: Lang) {
   const [supported] = useState(() => getSpeechRecognitionCtor() !== null)
-  const [listening, setListening] = useState(false)
+  const [micState, setMicState] = useState<MicState>(() => (supported ? 'ready' : 'unsupported'))
   const [transcript, setTranscript] = useState('')
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
+  const langRef = useRef(lang)
+
+  useEffect(() => {
+    langRef.current = lang
+  }, [lang])
 
   useEffect(() => {
     return () => {
@@ -52,12 +78,15 @@ export function useSpeechRecognition() {
 
   const start = useCallback(() => {
     const Ctor = getSpeechRecognitionCtor()
-    if (!Ctor) return
+    if (!Ctor) {
+      setMicState('unsupported')
+      return
+    }
 
     const recognition = new Ctor()
     recognition.continuous = true
     recognition.interimResults = true
-    recognition.lang = 'en-IN'
+    recognition.lang = LANG_TO_BCP47[langRef.current]
 
     recognition.onresult = (event) => {
       let finalChunk = ''
@@ -67,20 +96,29 @@ export function useSpeechRecognition() {
       }
       if (finalChunk) setTranscript((prev) => `${prev} ${finalChunk}`.trim())
     }
-    recognition.onerror = () => setListening(false)
-    recognition.onend = () => setListening(false)
+    recognition.onerror = (event) => setMicState(micStateForError(event.error))
+    recognition.onend = () => setMicState((prev) => (prev === 'listening' ? 'ready' : prev))
 
     recognitionRef.current = recognition
     recognition.start()
-    setListening(true)
+    setMicState('listening')
   }, [])
 
   const stop = useCallback(() => {
     recognitionRef.current?.stop()
-    setListening(false)
+    setMicState((prev) => (prev === 'listening' ? 'ready' : prev))
   }, [])
 
   const reset = useCallback(() => setTranscript(''), [])
 
-  return { supported, listening, transcript, start, stop, reset }
+  return {
+    supported,
+    micState,
+    /** Convenience boolean, equivalent to `micState === 'listening'`. */
+    listening: micState === 'listening',
+    transcript,
+    start,
+    stop,
+    reset,
+  }
 }

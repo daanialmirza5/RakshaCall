@@ -4,33 +4,49 @@
   --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
   --font-display: 'Manrope', 'Noto Sans Devanagari', system-ui, sans-serif;
 
-  --color-ink-950: #05070d;
-  --color-ink-900: #0b1120;
-  --color-ink-850: #101827;
-  --color-ink-800: #151f30;
-  --color-ink-700: #1f2c42;
-  --color-ink-600: #2c3c58;
-  --color-ink-500: #46597c;
-  --color-ink-300: #93a4c3;
-  --color-ink-100: #dfe6f2;
+  /*
+   * Light design system (Phase 5). Token NAMES and their structural ROLE
+   * (bg-ink-900 = surface, text-ink-100 = primary text, border-ink-700 =
+   * border, etc.) are unchanged from the dark theme on purpose — every
+   * existing component already uses these roles consistently, so redefining
+   * just the values here relights the whole app without touching component
+   * markup. ink-950 = page background (lightest), ink-50 = highest-emphasis
+   * text (darkest) — the reverse of the old dark-theme ordering.
+   */
+  --color-ink-950: #f8fafc;
+  --color-ink-900: #ffffff;
+  --color-ink-850: #f8fafc;
+  --color-ink-800: #f1f5f9;
+  --color-ink-700: #e2e8f0;
+  --color-ink-600: #cbd5e1;
+  --color-ink-500: #64748b;
+  --color-ink-300: #475569;
+  --color-ink-100: #1e293b;
+  --color-ink-50: #0b1120;
 
-  --color-brand-400: #4fd1c5;
-  --color-brand-500: #2fb8ab;
-  --color-brand-600: #1f9d92;
+  /* Primary accent: a single restrained teal, tuned for AA contrast on white. */
+  --color-brand-300: #0f766e;
+  --color-brand-400: #0d9488;
+  --color-brand-500: #0f766e;
+  --color-brand-600: #115e59;
 
-  --color-safe-400: #34d399;
+  --color-safe-400: #059669;
   --color-safe-500: #10b981;
 
-  --color-caution-400: #fbbf24;
+  --color-caution-200: #92400e;
+  --color-caution-300: #b45309;
+  --color-caution-400: #b45309;
   --color-caution-500: #f59e0b;
 
-  --color-danger-400: #f87171;
+  --color-danger-300: #dc2626;
+  --color-danger-400: #dc2626;
   --color-danger-500: #ef4444;
-  --color-danger-600: #dc2626;
+  --color-danger-600: #b91c1c;
+  --color-danger-950: #450a0a;
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {

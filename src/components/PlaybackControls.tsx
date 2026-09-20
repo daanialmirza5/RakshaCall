@@ -1,4 +1,4 @@
-import { FastForward, Pause, Play, Zap } from 'lucide-react'
+import { FastForward, Pause, Play, Volume2, VolumeX, Zap } from 'lucide-react'
 import { useAppSettings } from '../i18n/LanguageContext'
 import type { PlaybackMode, PlaybackStatus } from '../lib/callPlaybackUtils'
 import type { SpeedMultiplier } from '../lib/useCallPlayback'
@@ -9,11 +9,14 @@ interface PlaybackControlsProps {
   mode: PlaybackMode
   status: PlaybackStatus
   hasTrigger: boolean
+  ttsSupported: boolean
+  voiceEnabled: boolean
   onSetSpeed: (speed: SpeedMultiplier) => void
   onInstantDemo: () => void
   onJumpToTrigger: () => void
   onPause: () => void
   onResume: () => void
+  onToggleVoice: () => void
 }
 
 const pillBase =
@@ -23,11 +26,14 @@ export function PlaybackControls({
   mode,
   status,
   hasTrigger,
+  ttsSupported,
+  voiceEnabled,
   onSetSpeed,
   onInstantDemo,
   onJumpToTrigger,
   onPause,
   onResume,
+  onToggleVoice,
 }: PlaybackControlsProps) {
   const { strings } = useAppSettings()
   const t = strings.callScreen
@@ -65,6 +71,21 @@ export function PlaybackControls({
       >
         <Zap className="h-4 w-4" aria-hidden />
         {t.instantDemo}
+      </button>
+
+      <button
+        type="button"
+        onClick={onToggleVoice}
+        disabled={!ttsSupported}
+        aria-pressed={voiceEnabled && ttsSupported}
+        title={!ttsSupported ? t.voiceUnsupportedHint : voiceEnabled ? t.voiceOffHint : t.voiceOnHint}
+        aria-label={!ttsSupported ? t.voiceUnsupportedHint : voiceEnabled ? t.voiceOffHint : t.voiceOnHint}
+        className={`${pillBase} ${
+          voiceEnabled && ttsSupported ? 'bg-brand-500 text-white' : 'bg-ink-800 text-ink-200 hover:bg-ink-700'
+        }`}
+      >
+        {voiceEnabled && ttsSupported ? <Volume2 className="h-4 w-4" aria-hidden /> : <VolumeX className="h-4 w-4" aria-hidden />}
+        {voiceEnabled ? t.voiceOn : t.voiceOff}
       </button>
 
       <button

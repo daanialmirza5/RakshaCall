@@ -1,138 +1,160 @@
 # RakshaCall
 
-**Real-time scam-call protection assistant.** Built for **HACKDAY 1.0 — Tech for a Better Tomorrow**.
-
-> Protects a person *while* a scam call is happening — not only after the money has already moved.
+A privacy-first, client-only scam-call protection assistant designed to detect social-engineering tactics in real time and help users respond safely.
 
 ## Problem
 
-"Digital arrest" and other impersonation scams (fake CBI/police, fake bank fraud alerts, fake customs/courier seizures, fake SIM-deactivation notices) manipulate victims in real time — using authority impersonation, urgency, threats, isolation ("don't hang up, don't tell anyone"), forced video surveillance, and requests for OTPs or money transfers. Every existing defense (bank fraud monitoring, telecom SIM-binding, RBI risk indicators) acts *after* the fact. Nothing protects the person *during* the manipulation.
+India has seen a sharp rise in social-engineering phone scams that rely on psychological pressure rather than technical exploits:
+
+- **"Digital arrest" scams** — a caller impersonates CBI/police, alleges a fabricated case, and pressures the victim to stay on video and transfer money to "clear their name."
+- **Fake bank / fraud-prevention calls** — a caller claims suspicious activity on the victim's account and talks them into installing a remote-access app.
+- **Courier / customs seizure scams** — a caller claims a parcel in the victim's name was seized and demands an urgent "clearance fee."
+- **SIM deactivation scams** — a caller impersonating a telecom regulator threatens to block a SIM unless the victim shares OTP/PIN.
+- **Investment / task scams** — a friendly "opportunity" escalates into a request for an upfront "refundable" deposit.
+
+These scripts share a common structure: authority impersonation, urgency, threats, isolation ("don't hang up," "don't tell anyone"), and a request for money or credentials. By the time a victim recognizes the pattern, they're often already under pressure to act.
 
 ## Solution
 
-RakshaCall analyzes a call's conversation as it happens and surfaces a clear, plain-language warning — with detected tactics, a recommended action, and a one-tap "alert a trusted contact" option — the moment it recognizes a known scam pattern.
+RakshaCall analyzes a call's conversation — live simulated playback, a live microphone, or a pasted/typed transcript — and:
 
-## How It Works
+- Runs a **deterministic, local pattern-matching engine** across the transcript as it arrives
+- Recognizes signals across **8 manipulation-tactic categories** (see below)
+- Supports **English, Hinglish (romanized Hindi), Hindi (Devanagari), and Marathi**, including mixed-language conversation
+- Produces a **risk score and level** (LOW/MEDIUM/HIGH) from how tactics *combine*, not from any single ambiguous phrase
+- Shows a clear, **explainable warning** — exactly which tactics triggered it, in plain language
+- Offers **immediate safety actions** (stop, don't share, disconnect, verify)
+- Provides a **Get Help** hub with the official cybercrime helpline (1930), the National Cyber Crime Reporting Portal, and the Chakshu telecom-fraud reporting facility
+- Lets the user **alert a trusted contact** with a message built from the actual detected tactics (a clearly-labeled demo/preview action — no message is actually transmitted)
+- Generates a session-only **Incident Summary** (risk score, detected tactics, detection timeline) that can be copied or downloaded as plain text
 
-```
-Caller speech (simulated stream / pasted transcript / browser mic)
-        │
-        ▼
-Local, deterministic pattern-matching engine (8 scam-signal categories)
-        │
-        ▼
-Weighted risk score (0–100) + co-occurrence bonus for stacked tactics
-        │
-        ▼
-Risk level: LOW / MEDIUM / HIGH  ──▶  Live risk meter + detected-tactics list
-        │
-        ▼
-HIGH risk ──▶ full-screen plain-language warning + recommended action
-        │
-        ▼
-One-tap "Alert a trusted contact" (simulated preview)
-```
+## Key Innovation
 
-## Key Features
+1. **Privacy-first, client-only architecture** — the detection engine runs entirely in the browser
+2. **No backend required** for the core product
+3. **No external AI API** — detection is deterministic pattern matching, not an LLM call
+4. **Deterministic and explainable** — the same input always produces the same result, and every warning shows its reasoning
+5. **Real-time intervention** — risk is recalculated as each new line of conversation arrives, not after the fact
+6. **Indian scam-pattern awareness** — signal patterns are modeled on documented "digital arrest," fake-bank, courier/customs, SIM-deactivation, and investment scam scripts
+7. **Multilingual support** — English, Hinglish, Hindi, and Marathi, including mixed-language lines in the same conversation
+8. **Action-oriented emergency response** — not just a warning, but a concrete next step (helpline, reporting channel, trusted contact, incident record)
 
-- **Live simulated-call demo** — five realistic scam scenarios (digital arrest, fake bank, courier/customs, SIM deactivation, investment scam) stream in as a real conversation, with the risk meter and detected-tactics list updating live as each line arrives.
-- **Paste/type or speak a transcript** — analyze any text instantly, or use your browser's microphone (Web Speech API, where supported) to dictate live.
-- **Plain-language, two-second warnings** — no jargon, no raw scores shown to the user, just a clear verdict and what to do.
-- **Vernacular support** — English, Hindi, and Marathi, fully translated UI and warnings, not just labels.
-- **Accessibility-first UI** — large-text mode, high-contrast color system, icon-led warnings, big touch targets, calm (not panic-inducing) escalation for MEDIUM risk.
-- **Simulated trusted-contact alert** — composes and "sends" a check-in message, clearly labeled as simulated.
-- **Normal-call scenarios included** — proves the system doesn't cry wolf on ordinary calls (courier confirmation, telemarketing, genuine bank KYC, a friendly chat).
+## Architecture
 
-## Detection System
-
-The engine (`src/lib/detectionEngine.ts` + `src/data/signals.ts`) is a **fully local, deterministic, rule-based classifier** — chosen deliberately over a hosted/paid LLM:
-
-- **Zero cost, zero setup, zero external dependency** — no API key, no network call, no rate limit, and it cannot fail due to an outage during a live demo.
-- **Sub-millisecond, always-available** — the "AI must work without internet" constraint is satisfied by construction, not by a fallback path bolted on afterward.
-- **Explainable** — every verdict traces to specific matched phrases, which is what lets the UI show "why" in plain language instead of an opaque score.
-
-**Eight scam-signal categories**, each with its own weight and phrase library: authority impersonation, urgency, threats, isolation tactics, surveillance/video demands, credential extraction (OTP/PIN/password), financial extraction (transfers/fees), and remote-access-app requests. Scores combine category weights with a **co-occurrence bonus** — because real scams work by *stacking* tactics in one call, and that combination is a stronger signal than any single phrase (which keeps a single ambiguous word like "urgent" from tripping a false HIGH alert).
-
-This was scoped as the strongest reliable option for an 8-hour, zero-cost build. A production version could add a hosted or on-device NLP model as an optional *enhancement* layer on top of this deterministic core (see Future Scope) — never as a replacement for it, since the local engine is what guarantees the product still works with no internet and no paid account.
-
-## Technology
-
-| Layer | Choice | Why it's free |
-|---|---|---|
-| Frontend | React 19 + TypeScript + Vite | Open source, no account needed |
-| Styling | Tailwind CSS v4 | Open source |
-| Animation | Framer Motion | Open source |
-| Icons | Lucide | Open source |
-| Detection | Local TypeScript rules engine | Runs entirely in the browser, no API |
-| Speech input | Browser-native Web Speech API | Built into Chromium browsers, no key, no signup |
-| State | In-memory React state + `localStorage` (language/text-size preference only) | No database needed for a single-session demo |
-| Testing | Vitest (unit) + manual/automated browser smoke testing | Open source |
-| Hosting | GitHub Pages via GitHub Actions | Free static hosting tied to the repo, no card |
-
-**No paid API, no credit card, no signup is required to run or deploy this project.**
-
-## Demo
-
-1. Open the app (see **Running Locally** or the deployed URL below).
-2. Click **"Try the Live Demo"** → pick a scam scenario (e.g. *Fake "Digital Arrest" — CBI Impersonation*).
-3. Watch the transcript stream in like a real call — the risk meter climbs and detected tactics appear live.
-4. When risk hits HIGH, a full-screen warning explains what was detected and what to do, with a one-tap simulated "Alert a trusted contact" action.
-5. Try a **normal-call scenario** to see the system correctly stay calm/green.
-6. Or go to **"Analyze Transcript"** and paste/type/speak any text for instant analysis.
-
-## Setup
-
-```bash
-git clone <this-repo-url>
-cd RakshaCall-
-npm install
+```text
+User / Call Simulation (live playback, microphone, or pasted transcript)
+        ↓
+Transcript / Speech Input
+        ↓
+Text Normalization (case, punctuation, whitespace, Unicode)
+        ↓
+Deterministic Detection Engine (regex-based signal matching)
+        ↓
+8 Scam Tactic Categories
+  authority · urgency · threat · isolation · surveillance ·
+  credential extraction · financial extraction · remote access
+        ↓
+Risk Scoring (category weights + co-occurrence bonus, capped 0–100)
+        ↓
+Warning / Explanation (score, level, matched tactics, immediate actions)
+        ↓
+Emergency Hub + Trusted Contact + Incident Summary
 ```
 
-No environment variables are required — see `.env.example` for the (unused, optional) extension point.
+The entire pipeline above runs client-side in the browser. There is no application server and no external AI service in the request path for detection.
 
-## Running Locally
+## Tech Stack
 
-```bash
-npm run dev        # start the dev server (prints a local URL)
-npm run test:run   # run the detection-engine unit tests
-npm run build      # type-check + production build to dist/
-npm run preview    # serve the production build locally
-```
+- **React 19** + **TypeScript**
+- **Vite 8** (build tool / dev server)
+- **Tailwind CSS 4** (via `@tailwindcss/vite`)
+- **Framer Motion** (UI animation)
+- **lucide-react** (icons)
+- **Web Speech API** — `SpeechRecognition` (microphone → text) and `SpeechSynthesis` (caller-voice playback), both native browser APIs
+- **Vitest** + **@testing-library/react** (testing)
+- **oxlint** (linting)
 
-## Deployment
-
-Deployed via **GitHub Pages** using the included GitHub Actions workflow (`.github/workflows/deploy.yml`), which builds and publishes on every push to `main` — genuinely free, no billing, no credit card.
-
-**One-time setup** (repo owner, via the GitHub UI): *Settings → Pages → Source → GitHub Actions*. Once set, the workflow deploys automatically.
-
-Public URL once enabled: `https://daanialmirza5.github.io/RakshaCall/`
+No backend framework, database, authentication system, or paid API is used anywhere in the stack.
 
 ## Privacy
 
-- Conversation/transcript text is processed **entirely client-side**, in the browser — nothing is sent to a server or third party.
-- No account, login, or personal data collection.
-- `localStorage` is used only for two harmless preferences (selected language, large-text toggle) — never for conversation content.
-- The "trusted contact alert" is a simulated preview; no message is actually transmitted anywhere.
+- **No application backend.** There is no server that RakshaCall's own code talks to.
+- **No application database.** Nothing is persisted beyond the current browser session/tab.
+- **No external AI API.** Detection is a local, deterministic regex/scoring engine — not a call to an LLM or cloud model.
+- **Session-only processing.** The Incident Summary is generated from, and only from, the current session's state; it is not uploaded anywhere.
+- **Honest caveat on speech input:** the live-microphone feature uses the browser's native `SpeechRecognition` API. This is a *browser-controlled* capability — some browsers process speech on-device, while others (notably Chrome) may send audio to their own vendor servers to produce the transcript. RakshaCall itself never sends your voice or transcript anywhere; whatever transcript results (from either path) is analyzed entirely by the local detection engine. The app states this distinction directly in the UI rather than claiming "nothing ever leaves your device."
+- **Fonts:** the page loads Google Fonts (Inter/Manrope/Noto Sans Devanagari) over HTTPS for typography. This transmits no user data — it's a standard static asset request, not part of the detection pipeline.
+
+## Demo
+
+Suggested judge flow (also the one used for the 2–3 minute walkthrough below):
+
+```text
+Landing Page
+↓
+Start Protection
+↓
+Instant Demo / Jump to Scam Trigger
+↓
+High Risk Warning
+↓
+View Tactics
+↓
+Get Help
+↓
+1930 / Reporting Options
+↓
+Incident Summary
+↓
+Copy / Download
+```
+
+### 2–3 minute walkthrough
+
+**0:00–0:20 — Landing page**
+> "RakshaCall is a privacy-first scam-call protection assistant designed to identify social-engineering tactics in real time without requiring a backend or external AI API."
+
+**0:20–0:40 — Start Protection**
+Select a scam scenario; briefly show the live transcript, call-progress timeline, and risk meter.
+
+**0:40–1:10 — Jump to Scam Trigger**
+Let detection escalate. Show the rising risk score, the detected-tactics list, and the HIGH RISK warning.
+> "Instead of only saying this is a scam, RakshaCall explains the tactics being used — such as authority impersonation, urgency, threats, isolation, or credential extraction."
+
+**1:10–1:35 — Get Help**
+Open the emergency hub: the 1930 helpline, the official cybercrime reporting portal, and the Chakshu distinction.
+> "The product doesn't pretend to submit a complaint. It guides the user to the appropriate official channel."
+
+**1:35–2:00 — Incident Summary**
+Open the summary: peak risk, detected tactics, detection timeline. Use Copy / Download.
+
+**2:00–2:30 — Close**
+> "The key idea is simple: detect the manipulation early, explain why it is risky, and give the user a safe next action — while keeping the core analysis client-side."
 
 ## Limitations
 
-This is an honest hackathon MVP, not a production security product:
+Be honest with judges about what this is and isn't:
 
-- **No real telecom/call interception.** This does not tap into GSM/VoIP calls. Input is a simulated transcript stream, a pasted/typed transcript, or your own browser microphone reading a script aloud — never someone else's live phone call.
-- **No consent/wiretap infrastructure.** A production version needs an explicit call-recording/consent flow and would likely integrate at the OS call-screening layer (e.g. Android `CallScreeningService`) rather than assume raw audio access.
-- **Detection is deterministic pattern-matching**, not a trained ML/LLM classifier — it catches known phrasings and their common variants well, but a sufficiently novel paraphrase could evade it (see Future Scope).
-- **The trusted-contact alert is simulated** — no real SMS/push is sent (avoiding any paid SMS provider was a hard constraint for this build).
-- **Speech-to-text (Web Speech API) is browser-dependent** — supported in Chromium-based browsers, not in Firefox or most non-Chromium browsers, so it's offered as an optional input path alongside typed/pasted text, never a required one.
-- **No accuracy claims are made.** Detection is demonstrated against a written test suite of realistic scam and normal transcripts (`src/lib/detectionEngine.test.ts`), not validated against real-world call data, which does not exist for this project and should not be fabricated.
+- **Deterministic pattern-based detection**, not machine learning — it recognizes known phrasing patterns and their combinations, not arbitrary novel scam scripts.
+- **Not a replacement for telecom/network-level protection.** RakshaCall analyzes conversation text; it does not intercept or block real phone calls.
+- **Browser speech-recognition behavior varies by browser/vendor** (see Privacy, above).
+- **Speech synthesis (caller voice) depends on the voices installed on the user's browser/device** — Hindi/Marathi voices may not be available everywhere, and the app falls back gracefully when they aren't.
+- **Official government links (1930, cybercrime.gov.in, Chakshu/Sanchar Saathi) were verified at the time of writing** but are outside RakshaCall's control and could change.
+- **The Incident Summary is a session-generated record, not a certified forensic or legally admissible report.**
+- **Demo scenarios are fictional**, written to mirror publicly documented scam patterns — they are not real victim data.
 
 ## Future Scope
 
-- OS-level call-screening integration (Android `CallScreeningService` / iOS equivalent) for genuine on-device call analysis under explicit user consent.
-- An optional, opt-in on-device or hosted NLP/LLM layer to catch paraphrased scam language the deterministic engine misses, layered *on top of* the local engine rather than replacing it, so the product keeps working offline and free.
-- Real trusted-contact delivery (SMS/push) via a consented, properly authenticated channel.
-- Telecom, bank, and family-safety-app integrations for broader reach — not implemented or claimed today.
-- A larger, community-sourced (and appropriately anonymized) scam-pattern library, and more Indian languages.
+- On-device ML for more flexible, less pattern-brittle detection
+- Better multilingual speech understanding (more Indian languages, code-switching robustness)
+- Stronger typo/fuzzy matching for romanized-script variation
+- Real-time mobile/OS-level call integration
+- Telecom-level integration for real call interception (out of scope for a browser-only demo)
+- Privacy-preserving on-device models as an alternative to pattern rules
+- Personalized false-positive adaptation based on user feedback
+
+*(These are directions, not commitments — none of the above is implemented in this build.)*
 
 ---
 
-Built solo/small-team in ~8 hours for HACKDAY 1.0, using only free, no-credit-card-required tools throughout.
+Built for HACKDAY 1.0 — Tech for a Better Tomorrow.
