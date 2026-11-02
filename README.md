@@ -235,15 +235,15 @@ To provide complete transparency for **hackathon judges, developers, and securit
 
 | Interactive Workflow Graph | Live Node Execution Details |
 | :---: | :---: |
-| ![Live Architecture](docs/screenshots/06-live-architecture.png) | ![Node Details](docs/screenshots/07-node-details.png) |
+| ![Live Architecture](docs/screenshots/06-live-runtime-workflow.png) | ![Node Details](docs/screenshots/07-workflow-node-details.png) |
 
 | Detection Intelligence Pipeline | Voice & Speech Activity Runtime |
 | :---: | :---: |
-| ![Detection Pipeline](docs/screenshots/08-detection-workflow.png) | ![Voice Workflow](docs/screenshots/09-voice-workflow.png) |
+| ![Detection Pipeline](docs/screenshots/08-detection-intelligence-workflow.png) | ![Voice Workflow](docs/screenshots/09-voice-speech-workflow.png) |
 
 | Incident & Response Workflow | Manual / Paste Analysis Pipeline |
 | :---: | :---: |
-| ![Incident Workflow](docs/screenshots/10-incident-workflow.png) | ![Manual Analysis](docs/screenshots/11-manual-workflow.png) |
+| ![Incident Workflow](docs/screenshots/10-incident-response-workflow.png) | ![Manual Analysis](docs/screenshots/11-manual-analysis-workflow.png) |
 
 ### 7 Observable Application Workflows
 1. **Live Call Protection (`liveCall`):** End-to-end call orchestration from audio playback and transcript accumulation to real-time risk evaluation and emergency triggers.
