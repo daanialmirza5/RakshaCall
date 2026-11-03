@@ -322,6 +322,6 @@ RakshaCall includes **203 automated unit and integration tests** covering vernac
 
 ## 8. Authorship & Project Attribution
 
-- **Creator & Developer:** [Daanial Mirza](https://github.com/daanialmirza5) (`daanialmirza@gmail.com`)
+- **Creator & Developer:** [Daanial Baig](https://github.com/daanialmirza5) (`daanialmirza@gmail.com`)
 - **Repository:** [https://github.com/daanialmirza5/RakshaCall](https://github.com/daanialmirza5/RakshaCall)
 - **License:** MIT License
